@@ -32,14 +32,14 @@ const Navbar = () => {
 								<ul className="links">
 									<li>
 										<Link to={{ pathname: '/placeholder' }}>
-											placeholder1
+											Pandemic Analysis
 										</Link>
 									</li>
 
 									<div>
 										<li onClick={ () => setSnackbarOpen() }>
 											<Link to=''>
-												placeholder2
+												World Expenses
 											</Link>
 										</li>
 										<EzSnackbar open={snackbarOpen} close={() => setSnackbarClose()} />
