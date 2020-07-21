@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
+// Components
 import Headroom from 'react-headroom';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
+import EzSnackbar from '../Snackbar';
+// Styles
 import StyledNavbar from './StyledNavbar';
+// Global Context
+import { GlobalContext } from '../../context/GlobalState';
+
 
 
 const Navbar = () => {
+
+	const {setSnackbarOpen, setSnackbarClose, snackbarOpen} = useContext(GlobalContext);
+
 	return(
 		<Headroom>
 			<StyledNavbar>
@@ -27,11 +36,14 @@ const Navbar = () => {
 										</Link>
 									</li>
 
-									<li>
-										<Link to={{ pathname: '/' }}>
-											placeholder2
-										</Link>
-									</li>
+									<div>
+										<li onClick={ () => setSnackbarOpen() }>
+											<Link to=''>
+												placeholder2
+											</Link>
+										</li>
+										<EzSnackbar open={snackbarOpen} close={() => setSnackbarClose()} />
+									</div>
 									
 								</ul>
 							</nav>

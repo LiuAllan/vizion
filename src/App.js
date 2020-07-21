@@ -3,6 +3,9 @@ import './App.css';
 import Main from './pages/main';
 import { createGlobalStyle } from 'styled-components';
 
+// Context API
+import { GlobalProvider } from './context/GlobalState';
+
 const GlobalStyle= createGlobalStyle`
 
   html, body {
@@ -17,12 +20,12 @@ const GlobalStyle= createGlobalStyle`
 
 const App = () => {
   return (
-    <>
+    <GlobalProvider>
       <GlobalStyle />
       <div className="App">
         <Main />
       </div>
-    </>
+    </GlobalProvider>
   );
 }
 
