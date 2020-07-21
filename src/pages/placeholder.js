@@ -1,11 +1,15 @@
 import React from 'react';
+import Navbar from '../components/Navbar/Navbar';
 
 const Placeholder = () => {
 
 	return(
-		<div>
-			new page
-		</div>
+		<>
+			<Navbar />
+			<div>
+				new page
+			</div>
+		</>
 	);
 }
 

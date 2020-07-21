@@ -13,21 +13,26 @@ const Navbar = () => {
 					<Grid container direction="row" >
 						<Grid item md={6} xs={12}>
 							<div className="logo">
-								vizion
+								<Link to={{pathname: '/'}}>
+									vizion
+								</Link>
 							</div>
 						</Grid>
 						<Grid item md={6} xs={12}>
 							<nav>
 								<ul className="links">
-									<Link to={{ pathname: '/placeholder' }}>
-										<li>placeholder1</li>
-									</Link>
-									<Link>
-										<li>placeholder2</li>
-									</Link>
-									<Link>
-										<li>placeholder3</li>
-									</Link>
+									<li>
+										<Link to={{ pathname: '/placeholder' }}>
+											placeholder1
+										</Link>
+									</li>
+
+									<li>
+										<Link to={{ pathname: '/' }}>
+											placeholder2
+										</Link>
+									</li>
+									
 								</ul>
 							</nav>
 						</Grid>

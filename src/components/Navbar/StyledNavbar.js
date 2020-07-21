@@ -45,8 +45,25 @@ const StyledNavbar = styled.div`
 			font-size: 20px;
 			font-weight: 900;
 			font-family: 'Josefin Sans', sans-serif;
+			position: relative;
 		}
 
+		li a:after {    
+		  background: none repeat scroll 0 0 transparent;
+		  bottom: 0;
+		  content: "";
+		  display: block;
+		  height: 2px;
+		  left: 50%;
+		  position: absolute;
+		  background: linear-gradient(to right, #4d73e6 0%, #8a56e9 100%);
+		  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+		  width: 0;
+		}
+		li a:hover:after { 
+		  width: 100%; 
+		  left: 0; 
+		}
 	}
 
 `;
