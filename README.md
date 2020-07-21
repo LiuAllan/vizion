@@ -8,3 +8,5 @@
 - React-Typist
 - Material UI
 - React router
+
+Unfinished working prototype can be viewed from here: https://vizion-henna.vercel.app/
