@@ -32,7 +32,7 @@ const Navbar = () => {
 								<ul className="links">
 									<li>
 										<Link to={{ pathname: '/placeholder' }}>
-											Pandemic Analysis
+											Pandemic in BC
 										</Link>
 									</li>
 
