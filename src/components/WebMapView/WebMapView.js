@@ -143,11 +143,22 @@ const WebMapView = () => {
             		]
 	        	}
 
+	        	const CovidCasesLayer_Renderer = {
+	        		type: "simple",
+	        		symbol: {
+	        			type: "picture-marker",
+	        			"url": "http://static.arcgis.com/images/Symbols/Basic/esriCrimeMarker_86.png",
+	        			"width": "15px",
+	        			"height": "15px",
+	        		}
+	        	}
+
 	            // FeatureLayer - CovidCases BC
 	            const CovidCasesLayer = new FeatureLayer({
 	            	url: "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?outFields=*&where=1%3D1",
 	            	outFields: ['*'],
-	            	popupTemplate: popupTable
+	            	popupTemplate: popupTable,
+	            	renderer: CovidCasesLayer_Renderer,
 	            });
 	            map.add(CovidCasesLayer, 0);
 
@@ -194,6 +205,82 @@ const WebMapView = () => {
 					});
 		        });
 
+		        // Testing FeatureLayers
+		        const CanadaTestingLayer = new FeatureLayer({
+		        	url: 'https://services1.arcgis.com/B6yKvIZqzuOr0jBR/arcgis/rest/services/COVID19_Testing_Centres_in_Canada/FeatureServer/0/query?outFields=*&where=1%3D1',
+		        	outFields: ['*'],
+		        	popupTemplate: {
+		        		title: "COVID19 Testing Centers",
+		        		content: "{USER_Name}<br><br><b>Address:</b> {USER_Street}, {USER_PostalCode}<br><br><b>Phone:</b> {USER_Phone}"
+		        	},
+		        	renderer: {
+			        	type: "simple",
+		        		symbol: {
+		        			type: "picture-marker",
+		        			"url": "http://static.arcgis.com/images/Symbols/Animated/EnlargeGradientSymbol.png",
+		        			"width": "15px",
+		        			"height": "15px",
+		        		}
+		        	}
+		        });
+		        map.add(CanadaTestingLayer, 0);
+
+		        const USTestingLayer = new FeatureLayer({
+		        	url: 'https://services.arcgis.com/8ZpVMShClf8U8dae/arcgis/rest/services/TestingLocations_public2/FeatureServer/0/query?outFields=*&where=1%3D1',
+		        	outFields: ['*'],
+		        	popupTemplate: {
+		        		title: "COVID19 Testing Centers",
+		        		content: "{name}<br><br><b>Address:</b> {fulladdr}<br><br><b>Phone:</b> {phone}"
+		        	},
+		        	renderer: {
+			        	type: "simple",
+		        		symbol: {
+		        			type: "picture-marker",
+		        			"url": "http://static.arcgis.com/images/Symbols/Animated/EnlargeGradientSymbol.png",
+		        			"width": "15px",
+		        			"height": "15px",
+		        		}
+		        	}
+		        });
+		        map.add(USTestingLayer, 0);
+
+		        // Filter
+		        const sqlExpressions = ["Confirmed > 0" , "Deaths > 1000", "name = 'none'", "name = name", "USER_Name = 'none'", "USER_Name = USER_Name"];
+		        const selectFilter = document.createElement("select");
+		        selectFilter.setAttribute("class", "esri-widget esri-select");
+     			selectFilter.setAttribute("style", "width: 275px; font-family: Avenir Next W00; font-size: 1em;");
+
+				sqlExpressions.forEach((sql) => {
+					const option = document.createElement("option");
+					option.value = sql;
+					option.innerHTML = sql;
+					selectFilter.appendChild(option);
+				});
+				view.ui.add(selectFilter, "top-right");
+
+				//*************************************
+
+				selectFilter.addEventListener('change', (event) => {
+					setFeatureLayerViewFilter(event.target.value);
+				});
+
+				const setFeatureLayerViewFilter = (expression) => {
+					view.whenLayerView(CovidCasesLayer).then((featureLayerView) => {
+						featureLayerView.filter = {
+							where: expression
+						};
+					});
+					view.whenLayerView(USTestingLayer).then((featureLayerView) => {
+						featureLayerView.filter = {
+							where: expression
+						};
+					});
+					view.whenLayerView(CanadaTestingLayer).then((featureLayerView) => {
+						featureLayerView.filter = {
+							where: expression
+						};
+					});
+				}
 
 
 				return () => {
@@ -209,8 +296,8 @@ const WebMapView = () => {
     return (
     	<>
 	    	<h3 style={{ fontSize: '32px', fontWeight: '500', paddingLeft: '3rem'}}>2020 Pandemic</h3>
-	    	<div id="feature-node" style={{ float: 'left', height: '100%', width: '20%', padding: '1em',}}></div>
-	    	<div className="webmap" ref={mapRef} style={{ height: '80vh', width: 'auto', margin: '0', padding: '0'}} />
+		    <div id="feature-node" style={{ float: 'left', height: '80vh', width: '25%', padding: '1em'}}></div>
+		    <div className="webmap" ref={mapRef} style={{ height: '80vh', width: 'auto', margin: '0', padding: '0'}} />
     	</>
     );
 };
