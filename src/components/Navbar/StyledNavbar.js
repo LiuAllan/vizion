@@ -39,12 +39,13 @@ const StyledNavbar = styled.div`
 			padding: 10px;
 
 			//font
-			background: linear-gradient(to right, #4d73e6 0%, #8a56e9 100%);
+			// background: linear-gradient(to right, #4d73e6 0%, #8a56e9 100%);
+			background: black;
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 			font-size: 20px;
 			font-weight: 900;
-			font-family: 'Josefin Sans', sans-serif;
+			// font-family: 'Josefin Sans', sans-serif;
 			position: relative;
 		}
 

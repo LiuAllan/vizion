@@ -1,18 +1,17 @@
 import React from 'react';
 import Navbar from '../components/Navbar/Navbar';
+import AnimeVisualization from '../components/AnimeVisualization/AnimeVisualization';
 import Footer from '../components/Footer/Footer';
 
-import WebMapView from '../components/WebMapView/WebMapView';
-
-const Placeholder = () => {
+const Anime = () => {
 
 	return(
 		<>
 			<Navbar />
-			<WebMapView />
+			<AnimeVisualization />
 			<Footer />
 		</>
 	);
 }
 
-export default Placeholder;
+export default Anime;

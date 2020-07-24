@@ -31,15 +31,21 @@ const Navbar = () => {
 							<nav>
 								<ul className="links">
 									<li>
-										<Link to={{ pathname: '/placeholder' }}>
+										<Link to={{ pathname: '/pandemic' }}>
 											Pandemic Tracking
+										</Link>
+									</li>
+
+									<li>
+										<Link to={{ pathname: '/anime' }}>
+											Anime Data
 										</Link>
 									</li>
 
 									<div>
 										<li onClick={ () => setSnackbarOpen() }>
-											<Link to=''>
-												World Expenses
+											<Link>
+												Placeholder
 											</Link>
 										</li>
 										<EzSnackbar open={snackbarOpen} close={() => setSnackbarClose()} />
