@@ -42,6 +42,7 @@ const Navbar = () => {
 										</Link>
 									</li>
 
+									{/*}
 									<div>
 										<li onClick={ () => setSnackbarOpen() }>
 											<Link>
@@ -50,6 +51,7 @@ const Navbar = () => {
 										</li>
 										<EzSnackbar open={snackbarOpen} close={() => setSnackbarClose()} />
 									</div>
+									*/}
 									
 								</ul>
 							</nav>

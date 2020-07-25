@@ -1,6 +1,7 @@
 // ArcGIS modules
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { loadModules } from 'esri-loader';
+import Button from '@material-ui/core/Button';
 
 // Widgets
 window.dojoConfig = {
@@ -21,6 +22,7 @@ window.dojoConfig = {
 
 
 const WebMapView = () => {
+
     const mapRef = useRef();
 
     useEffect(
@@ -34,10 +36,13 @@ const WebMapView = () => {
 	        	'esri/layers/FeatureLayer',
 	        	'esri/widgets/Feature',
 	        	'esri/Graphic',
+	        	'dijit/form/ToggleButton',
+	        	'esri/layers/ImageryLayer',
+	        	'esri/layers/TileLayer'
 	        ], { css: true })
 
 
-	        .then(([WebMap, MapView, BasemapToggle, Locate, FeatureLayer, Feature, Graphic]) => {
+	        .then(([WebMap, MapView, BasemapToggle, Locate, FeatureLayer, Feature, Graphic, ToggleButton, ImageryLayer, TileLayer]) => {
 				const map = new WebMap({
 					basemap: 'dark-gray-vector',
 				});
@@ -162,6 +167,14 @@ const WebMapView = () => {
 	            });
 	            map.add(CovidCasesLayer, 0);
 
+
+	            const Covidmap = new FeatureLayer({
+	            	url: "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cases2_v1/FeatureServer",
+	            	
+	            });
+	            map.add(Covidmap, 0);
+
+
 	            // Side panel
 		        view.when().then(function () {
 					// Create a default graphic for when the application starts
@@ -179,7 +192,56 @@ const WebMapView = () => {
 						spatialReference: view.spatialReference
 					});
 
+					// Popup highlights on mouseover
 					view.whenLayerView(CovidCasesLayer).then((layerView) => {
+						let highlight;
+						// listen for the pointer-move event on the View
+						view.on("pointer-move", (event) => {
+							// Perform a hitTest on the View
+							view.hitTest(event).then((event) => {
+								// Make sure graphic has a popupTemplate
+								let results = event.results.filter((result) => {
+									return result.graphic.layer.popupTemplate;
+								});
+								let result = results[0];
+								highlight && highlight.remove();
+								// Update the graphic of the Feature widget
+								// on pointer-move with the result
+								if (result) {
+									feature.graphic = result.graphic;
+									highlight = layerView.highlight(result.graphic);
+								} 
+								else {
+									feature.graphic = graphic;
+								}
+							});
+						});
+					});
+					view.whenLayerView(CanadaTestingLayer).then((layerView) => {
+						let highlight;
+						// listen for the pointer-move event on the View
+						view.on("pointer-move", (event) => {
+							// Perform a hitTest on the View
+							view.hitTest(event).then((event) => {
+								// Make sure graphic has a popupTemplate
+								let results = event.results.filter((result) => {
+									return result.graphic.layer.popupTemplate;
+								});
+								let result = results[0];
+								highlight && highlight.remove();
+								// Update the graphic of the Feature widget
+								// on pointer-move with the result
+								if (result) {
+									feature.graphic = result.graphic;
+									highlight = layerView.highlight(result.graphic);
+								} 
+								else {
+									feature.graphic = graphic;
+								}
+							});
+						});
+					});
+					view.whenLayerView(USTestingLayer).then((layerView) => {
 						let highlight;
 						// listen for the pointer-move event on the View
 						view.on("pointer-move", (event) => {
@@ -217,13 +279,14 @@ const WebMapView = () => {
 			        	type: "simple",
 		        		symbol: {
 		        			type: "picture-marker",
-		        			"url": "http://static.arcgis.com/images/Symbols/Animated/EnlargeGradientSymbol.png",
+		        			"url": "http://static.arcgis.com/images/Symbols/Animated/ConstantWhiteStrobeMarkerSymbol.png",
 		        			"width": "15px",
 		        			"height": "15px",
 		        		}
 		        	}
 		        });
 		        map.add(CanadaTestingLayer, 0);
+		        // CanadaTestingLayer.visible = false;
 
 		        const USTestingLayer = new FeatureLayer({
 		        	url: 'https://services.arcgis.com/8ZpVMShClf8U8dae/arcgis/rest/services/TestingLocations_public2/FeatureServer/0/query?outFields=*&where=1%3D1',
@@ -236,16 +299,27 @@ const WebMapView = () => {
 			        	type: "simple",
 		        		symbol: {
 		        			type: "picture-marker",
-		        			"url": "http://static.arcgis.com/images/Symbols/Animated/EnlargeGradientSymbol.png",
+		        			"url": "http://static.arcgis.com/images/Symbols/Animated/ConstantWhiteStrobeMarkerSymbol.png",
 		        			"width": "15px",
 		        			"height": "15px",
 		        		}
-		        	}
+		        	},
+
 		        });
 		        map.add(USTestingLayer, 0);
+		        // USTestingLayer.visible = false;
+
+		        // Senior Population
+		        const SeniorPopLayer = new TileLayer({
+		        	url: 'https://tiles.arcgis.com/tiles/4yjifSiIG17X0gW4/arcgis/rest/services/Senior_Population_Global_Dataset/MapServer'
+		        });
+		        map.add(SeniorPopLayer, 0);
+		        SeniorPopLayer.visible = false;
+
+
 
 		        // Filter
-		        const sqlExpressions = ["Confirmed > 0" , "Deaths > 1000", "name = 'none'", "name = name", "USER_Name = 'none'", "USER_Name = USER_Name"];
+		        const sqlExpressions = ["Confirmed > 0" , "Deaths > 1000", "Active > 500"];
 		        const selectFilter = document.createElement("select");
 		        selectFilter.setAttribute("class", "esri-widget esri-select");
      			selectFilter.setAttribute("style", "width: 275px; font-family: Avenir Next W00; font-size: 1em;");
@@ -270,17 +344,39 @@ const WebMapView = () => {
 							where: expression
 						};
 					});
-					view.whenLayerView(USTestingLayer).then((featureLayerView) => {
-						featureLayerView.filter = {
-							where: expression
-						};
-					});
-					view.whenLayerView(CanadaTestingLayer).then((featureLayerView) => {
-						featureLayerView.filter = {
-							where: expression
-						};
-					});
 				}
+
+
+
+				//Buttons
+				document.getElementById("toggleTestingCenters").innerHTML = "Toggle Testing Centers";
+				var TestingCenters = false;
+				const ToggleTestingCenter = () => {
+					TestingCenters = !TestingCenters;
+					CanadaTestingLayer.visible = !TestingCenters;
+					USTestingLayer.visible = !TestingCenters;
+					console.log(TestingCenters);
+				}
+				document.getElementById("toggleTestingCenters").addEventListener("click", ToggleTestingCenter);
+
+
+				document.getElementById("toggleCases").innerHTML = "Toggle Province";
+				var Cases = false;
+				const ToggleCase = () => {
+					Cases = !Cases;
+					CovidCasesLayer.visible = !Cases;
+				}
+				document.getElementById("toggleCases").addEventListener("click", ToggleCase);
+
+
+				document.getElementById("toggleSenior").innerHTML = "Toggle Senior Population";
+				var Seniors = true;
+				const ToggleSenior = () => {
+					Seniors = !Seniors;
+					SeniorPopLayer.visible = !Seniors;
+				}
+				document.getElementById("toggleSenior").addEventListener("click", ToggleSenior);
+
 
 
 				return () => {
@@ -296,8 +392,13 @@ const WebMapView = () => {
     return (
     	<>
 	    	<h3 style={{ fontSize: '32px', fontWeight: '500', paddingLeft: '3rem'}}>2020 Pandemic</h3>
-		    <div id="feature-node" style={{ float: 'left', height: '80vh', width: '25%', padding: '1em'}}></div>
-		    <div className="webmap" ref={mapRef} style={{ height: '80vh', width: 'auto', margin: '0', padding: '0'}} />
+	    	<div className="map-container">
+	    		<Button id="toggleTestingCenters" variant="contained" size="small" color="default"></Button>
+	    		<Button id="toggleCases" variant="contained" size="small" color="default"></Button>
+	    		<Button id="toggleSenior" variant="contained" size="small" color="default"></Button>
+			    <div id="feature-node" style={{ float: 'left', height: '80vh', width: '25%', padding: '1em'}}></div>
+			    <div className="webmap" ref={mapRef} style={{ height: '80vh', width: 'auto', margin: '0', padding: '0'}} />
+			</div>
     	</>
     );
 };

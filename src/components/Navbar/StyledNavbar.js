@@ -44,7 +44,7 @@ const StyledNavbar = styled.div`
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 			font-size: 20px;
-			font-weight: 900;
+			font-weight: 500;
 			// font-family: 'Josefin Sans', sans-serif;
 			position: relative;
 		}
