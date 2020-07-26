@@ -1,7 +1,8 @@
 // ArcGIS modules
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { loadModules } from 'esri-loader';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 // Widgets
 window.dojoConfig = {
@@ -44,7 +45,7 @@ const WebMapView = () => {
 
 	        .then(([WebMap, MapView, BasemapToggle, Locate, FeatureLayer, Feature, Graphic, ToggleButton, ImageryLayer, TileLayer]) => {
 				const map = new WebMap({
-					basemap: 'dark-gray-vector',
+					basemap: 'dark-gray',
 				});
 
 				// load the map view at the ref's DOM node
@@ -123,6 +124,18 @@ const WebMapView = () => {
 		            			stringFieldOption: "text-box"
 	            			},
 	            			{
+		            			fieldName: "Incident_Rate",
+		            			label: "Incident Rate",
+		            			isEditable: true,
+		            			tooltip: "",
+		            			visible: true,
+		            			format: {
+		            				places: 2,
+		            				digitSeparator: true,
+		            			},
+		            			stringFieldOption: "text-box"
+	            			},
+	            			{
 		            			fieldName: "Last_Update",
 		            			label: "Last Updated",
 		            			isEditable: true,
@@ -148,29 +161,30 @@ const WebMapView = () => {
             		]
 	        	}
 
-	        	const CovidCasesLayer_Renderer = {
-	        		type: "simple",
-	        		symbol: {
-	        			type: "picture-marker",
-	        			"url": "http://static.arcgis.com/images/Symbols/Basic/esriCrimeMarker_86.png",
-	        			"width": "15px",
-	        			"height": "15px",
-	        		}
-	        	}
+	        	// const CovidCasesLayer_Renderer = {
+	        	// 	type: "simple",
+	        	// 	symbol: {
+	        	// 		type: "picture-marker",
+	        	// 		"url": "http://static.arcgis.com/images/Symbols/Basic/esriCrimeMarker_86.png",
+	        	// 		"width": "15px",
+	        	// 		"height": "15px",
+	        	// 	}
+	        	// }
 
-	            // FeatureLayer - CovidCases BC
-	            const CovidCasesLayer = new FeatureLayer({
-	            	url: "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?outFields=*&where=1%3D1",
+	            // const CovidCasesLayer = new FeatureLayer({
+	            // 	url: "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?outFields=*&where=1%3D1",
+	            // 	outFields: ['*'],
+	            // 	popupTemplate: popupTable,
+	            // 	renderer: CovidCasesLayer_Renderer,
+	            // });
+	            // map.add(CovidCasesLayer, 0);
+	            // CovidCasesLayer.visible = false;
+
+	            
+	            const Covidmap = new FeatureLayer({
+	            	url: "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cases2_v1/FeatureServer/1",
 	            	outFields: ['*'],
 	            	popupTemplate: popupTable,
-	            	renderer: CovidCasesLayer_Renderer,
-	            });
-	            map.add(CovidCasesLayer, 0);
-
-
-	            const Covidmap = new FeatureLayer({
-	            	url: "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cases2_v1/FeatureServer",
-	            	
 	            });
 	            map.add(Covidmap, 0);
 
@@ -193,7 +207,7 @@ const WebMapView = () => {
 					});
 
 					// Popup highlights on mouseover
-					view.whenLayerView(CovidCasesLayer).then((layerView) => {
+					view.whenLayerView(Covidmap).then((layerView) => {
 						let highlight;
 						// listen for the pointer-move event on the View
 						view.on("pointer-move", (event) => {
@@ -286,7 +300,7 @@ const WebMapView = () => {
 		        	}
 		        });
 		        map.add(CanadaTestingLayer, 0);
-		        // CanadaTestingLayer.visible = false;
+		        CanadaTestingLayer.visible = false;
 
 		        const USTestingLayer = new FeatureLayer({
 		        	url: 'https://services.arcgis.com/8ZpVMShClf8U8dae/arcgis/rest/services/TestingLocations_public2/FeatureServer/0/query?outFields=*&where=1%3D1',
@@ -307,14 +321,22 @@ const WebMapView = () => {
 
 		        });
 		        map.add(USTestingLayer, 0);
-		        // USTestingLayer.visible = false;
+		        USTestingLayer.visible = false;
 
 		        // Senior Population
 		        const SeniorPopLayer = new TileLayer({
-		        	url: 'https://tiles.arcgis.com/tiles/4yjifSiIG17X0gW4/arcgis/rest/services/Senior_Population_Global_Dataset/MapServer'
+		        	url: 'https://tiles.arcgis.com/tiles/4yjifSiIG17X0gW4/arcgis/rest/services/Senior_Population_Global_Dataset/MapServer',
 		        });
 		        map.add(SeniorPopLayer, 0);
 		        SeniorPopLayer.visible = false;
+
+
+		     	// Population Density
+		     	const PopDensity = new TileLayer({
+		     		url: 'https://tiles.arcgis.com/tiles/RNiAyqyRLBta0YpY/arcgis/rest/services/Analyzing_Demographcs_Density/MapServer',
+		     	});
+		     	map.add(PopDensity, 0);
+		     	PopDensity.visible = false;
 
 
 
@@ -339,7 +361,7 @@ const WebMapView = () => {
 				});
 
 				const setFeatureLayerViewFilter = (expression) => {
-					view.whenLayerView(CovidCasesLayer).then((featureLayerView) => {
+					view.whenLayerView(Covidmap).then((featureLayerView) => {
 						featureLayerView.filter = {
 							where: expression
 						};
@@ -349,8 +371,8 @@ const WebMapView = () => {
 
 
 				//Buttons
-				document.getElementById("toggleTestingCenters").innerHTML = "Toggle Testing Centers";
-				var TestingCenters = false;
+				document.getElementById("toggleTestingCenters").innerHTML = "Toggle Testing Centers (CAN/US)";
+				var TestingCenters = true;
 				const ToggleTestingCenter = () => {
 					TestingCenters = !TestingCenters;
 					CanadaTestingLayer.visible = !TestingCenters;
@@ -360,11 +382,11 @@ const WebMapView = () => {
 				document.getElementById("toggleTestingCenters").addEventListener("click", ToggleTestingCenter);
 
 
-				document.getElementById("toggleCases").innerHTML = "Toggle Province";
+				document.getElementById("toggleCases").innerHTML = "Toggle Cases";
 				var Cases = false;
 				const ToggleCase = () => {
 					Cases = !Cases;
-					CovidCasesLayer.visible = !Cases;
+					Covidmap.visible = !Cases;
 				}
 				document.getElementById("toggleCases").addEventListener("click", ToggleCase);
 
@@ -377,7 +399,13 @@ const WebMapView = () => {
 				}
 				document.getElementById("toggleSenior").addEventListener("click", ToggleSenior);
 
-
+				document.getElementById("togglePopDensity").innerHTML = "Toggle Population Density";
+				var Density = true;
+				const ToggleDensity = () => {
+					Density = !Density;
+					PopDensity.visible = !Density;
+				}
+				document.getElementById("togglePopDensity").addEventListener("click", ToggleDensity);
 
 				return () => {
 					if (view) {
@@ -393,11 +421,22 @@ const WebMapView = () => {
     	<>
 	    	<h3 style={{ fontSize: '32px', fontWeight: '500', paddingLeft: '3rem'}}>2020 Pandemic</h3>
 	    	<div className="map-container">
-	    		<Button id="toggleTestingCenters" variant="contained" size="small" color="default"></Button>
-	    		<Button id="toggleCases" variant="contained" size="small" color="default"></Button>
-	    		<Button id="toggleSenior" variant="contained" size="small" color="default"></Button>
-			    <div id="feature-node" style={{ float: 'left', height: '80vh', width: '25%', padding: '1em'}}></div>
-			    <div className="webmap" ref={mapRef} style={{ height: '80vh', width: 'auto', margin: '0', padding: '0'}} />
+	    		<Grid container>
+	    			<Grid item xs={12}>
+			    		<Button id="toggleTestingCenters" variant="contained" size="small" color="default"></Button>
+			    		<Button id="toggleCases" variant="contained" size="small" color="default"></Button>
+			    		<Button id="toggleSenior" variant="contained" size="small" color="default"></Button>
+			    		<Button id="togglePopDensity" variant="contained" size="small" color="default"></Button>
+		    		</Grid>
+
+				    <Grid item md={9} xs={12}>
+				    	<div className="webmap" ref={mapRef} style={{ height: '80vh', width: 'auto', margin: '0', padding: '0'}} />
+				    </Grid>
+		    		<Grid item xs>
+				    	<div id="feature-node" style={{ float: 'right', height: '80vh', width: '100%', paddingLeft: '1em', paddingRight: '1em'}}></div>
+				    </Grid>
+
+				</Grid>
 			</div>
     	</>
     );

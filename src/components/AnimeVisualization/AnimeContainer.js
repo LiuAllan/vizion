@@ -23,6 +23,7 @@ const AnimeContainer = () => {
 			{loading && <p>Loading...</p>}
 			{error && <p>{error.message}</p>}
 			{console.log(data)}
+			<p>If you are reading this. This means I am currently working on this. Like... at this very moment :)</p>
 			<RadarChartViz />
 			}
 		</>
