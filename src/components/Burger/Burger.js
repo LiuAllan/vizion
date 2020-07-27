@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const StyledBurger = styled.div`
 	/* Position and sizing of burger button */
 	.bm-burger-button {
-	  position: fixed;
+	  position: relative;
 	  width: 32px;
 	  height: 26px;
 	  left: 36px;
