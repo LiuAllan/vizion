@@ -45,9 +45,10 @@ const StyledBurger = styled.div`
 
 	/* General sidebar styles */
 	.bm-menu {
-	  background: #373a47;
+	  background: #fff;
 	  padding: 2.5em 1.5em 0;
 	  font-size: 1.15em;
+	  overflow: hidden !important;
 	}
 
 	/* Morph shape necessary with bubble or elastic */
@@ -59,11 +60,18 @@ const StyledBurger = styled.div`
 	.bm-item-list {
 	  color: #b8b7ad;
 	  padding: 0.8em;
+
+	  a {
+	  	text-decoration: none;
+	  	color: #8a56e9;
+	  }
 	}
 
 	/* Individual item */
 	.bm-item {
 	  display: inline-block;
+	  // padding-bottom: 1em;
+
 	}
 
 	/* Styling of overlay */

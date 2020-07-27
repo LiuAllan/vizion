@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import RadarChartViz from './RadarChart';
 
 const GET_ANIME = gql`
-	query GET_ANIME($id: Int) {
+	query GET_ANIME($id: Int!) {
 		Media(id: $id) {
 	    	type
 	  	}
