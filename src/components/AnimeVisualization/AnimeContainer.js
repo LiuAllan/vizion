@@ -25,7 +25,7 @@ const AnimeContainer = () => {
 			{console.log(data)}
 			<p>If you are reading this. This means I am currently working on this. Like... at this very moment :)</p>
 			<RadarChartViz />
-			}
+			
 		</>
 		
 	);

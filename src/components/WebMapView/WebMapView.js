@@ -45,7 +45,7 @@ const WebMapView = () => {
 
 	        .then(([WebMap, MapView, BasemapToggle, Locate, FeatureLayer, Feature, Graphic, ToggleButton, ImageryLayer, TileLayer]) => {
 				const map = new WebMap({
-					basemap: 'dark-gray',
+					basemap: 'dark-gray-vector',
 				});
 
 				// load the map view at the ref's DOM node
@@ -419,7 +419,7 @@ const WebMapView = () => {
 
     return (
     	<>
-	    	<h3 style={{ fontSize: '32px', fontWeight: '500', paddingLeft: '3rem'}}>2020 Pandemic</h3>
+	    	<h3 style={{ fontSize: '32px', fontWeight: '500', paddingLeft: '3rem', textAlign: 'center'}}>2020 Pandemic</h3>
 	    	<div className="map-container">
 	    		<Grid container>
 	    			<Grid item xs={12}>
