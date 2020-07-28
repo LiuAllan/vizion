@@ -419,7 +419,7 @@ const WebMapView = () => {
 
     return (
     	<>
-	    	<h3 style={{ fontSize: '32px', fontWeight: '500', paddingLeft: '3rem', textAlign: 'center'}}>2020 Pandemic</h3>
+	    	<h3 style={{ fontSize: '32px', fontWeight: '500', textAlign: 'center', padding: '2rem'}}>2020 Pandemic</h3>
 	    	<div className="map-container">
 	    		<Grid container>
 	    			<Grid item xs={12}>

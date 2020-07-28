@@ -9,8 +9,8 @@ const StyledBurger = styled.div`
 	  position: relative;
 	  width: 32px;
 	  height: 26px;
-	  left: 36px;
-	  top: 36px;
+	  left: 32px;
+	  top: 32px;
 	}
 
 	/* Color/shape of burger icon bars */
