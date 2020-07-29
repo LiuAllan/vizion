@@ -13,7 +13,7 @@ import { GlobalContext } from '../../context/GlobalState';
 
 const Navbar = () => {
 
-	const {setSnackbarOpen, setSnackbarClose, snackbarOpen} = useContext(GlobalContext);
+	// const {setSnackbarOpen, setSnackbarClose, snackbarOpen} = useContext(GlobalContext);
 
 	return(
 		<>
