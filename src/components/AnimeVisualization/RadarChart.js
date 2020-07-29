@@ -5,7 +5,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'r
 const RadarChartViz = ({ data }) => {
   // console.log(data);
   return (
-    <RadarChart cx={300} cy={300} outerRadius={150} width={600} height={600} data={data}>
+    <RadarChart cx={225} cy={225} outerRadius={100} width={500} height={500} data={data}>
       <PolarGrid />
       <PolarAngleAxis dataKey="subject" />
       <PolarRadiusAxis />

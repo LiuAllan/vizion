@@ -8,6 +8,13 @@ const StyledContainer = styled.div`
 	height: 100%;
 	width: 100%;
 	background-color: #fff;
+
+	.searchbar {
+		text-align:center;
+	}
+	.viz-container {
+		margin: 2rem;
+	}
 `;
 
 
@@ -54,7 +61,7 @@ const AnimeContainer = () => {
 		const RadarData = [];
 
 		genres.map(genre => {
-			RadarData.push({subject: genre, A: 150, B: 110, fullMark: 150});
+			RadarData.push({subject: genre, A: 150, B: 100, fullMark: 150});
 			// console.log(RadarData);
 		});
 		return RadarData;
@@ -65,15 +72,18 @@ const AnimeContainer = () => {
 			{loading && <p>Loading...</p>}
 			{error && <p>{error.message}</p>}
 
-			<form onSubmit={handleSubmit}>
-				<input type="text" name="search" value={search} onChange={handleChange}></input>
-			</form>
+			<div className="searchbar">
+				<h1>Search for an Anime or Manga</h1>
+				<form onSubmit={handleSubmit}>
+					<input type="text" name="search" value={search} onChange={handleChange}></input>
+				</form>
+			</div>
 			
 			{data ? 
-				<>
+				<div className="viz-container">
 					<RadarChartViz data={renderRadarChart(data.Media)}/>
 					<RadarChartViz data={renderRadarChart(data.Media)}/> 
-				</>
+				</div>
 			: ""}
 			
 			
