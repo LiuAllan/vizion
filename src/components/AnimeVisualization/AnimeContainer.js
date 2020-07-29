@@ -17,13 +17,17 @@ const AnimeContainer = () => {
 	const { loading, error, data } = useQuery(GET_ANIME, {
 		variables: { id: 98977},
 	});
+	
+	if(data) {
+		console.log(data);
+	}
 
 	return (
 		<>
 			{loading && <p>Loading...</p>}
 			{error && <p>{error.message}</p>}
-			{console.log(data)}
-			<p>If you are reading this. This means I am currently working on this. Like... at this very moment :)</p>
+		
+
 			<RadarChartViz />
 			
 		</>
