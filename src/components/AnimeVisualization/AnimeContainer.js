@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+// Styles
 import styled from 'styled-components';
+// Components
 import RadarChartViz from './RadarChart';
+import BarChartViz from './BarChart';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 const StyledContainer = styled.div`
 	height: 100%;
@@ -13,7 +18,9 @@ const StyledContainer = styled.div`
 		text-align:center;
 	}
 	.viz-container {
-		margin: 2rem;
+		text-align: center;
+		padding: 1em;
+		overflow: hidden;
 	}
 `;
 
@@ -57,34 +64,59 @@ const AnimeContainer = () => {
 	}
 
 	const renderRadarChart = ({genres}) => {
-		// console.log("test");
 		const RadarData = [];
 
 		genres.map(genre => {
 			RadarData.push({subject: genre, A: 150, B: 100, fullMark: 150});
-			// console.log(RadarData);
 		});
 		return RadarData;
 	}
 
+	const renderBarChart = ({tags}) => {
+		const BarData = [];
+		tags.map((tag) => {
+			BarData.push({ name: tag.name, tags: tag.rank, amt: 200 })
+		});
+		return BarData;
+	} 
+
 	return (
 		<StyledContainer>
-			{loading && <p>Loading...</p>}
-			{error && <p>{error.message}</p>}
-
 			<div className="searchbar">
 				<h1>Search for an Anime or Manga</h1>
 				<form onSubmit={handleSubmit}>
 					<input type="text" name="search" value={search} onChange={handleChange}></input>
 				</form>
 			</div>
-			
-			{data ? 
-				<div className="viz-container">
-					<RadarChartViz data={renderRadarChart(data.Media)}/>
-					<RadarChartViz data={renderRadarChart(data.Media)}/> 
-				</div>
-			: ""}
+
+			{loading && <p>Loading...</p>}
+			{error && <p>{error.message}</p>}
+			{console.log(data)}
+			{data ?
+				<Grid container spacing={1} className="viz-container">
+					<Grid item lg={4}>
+						<Paper variant="outlined">
+							<h3>Genres</h3>
+							<RadarChartViz data={renderRadarChart(data.Media)}/>
+						</Paper>
+					</Grid>
+					<Grid item lg={4}>
+						<Paper variant="outlined">
+							<h3>Information</h3>
+							<RadarChartViz data={renderRadarChart(data.Media)}/> 
+						</Paper>
+					</Grid>
+					<Grid item lg={4}>
+						<Paper variant="outlined">
+							<h3>Category</h3>
+							{ data.Media.tags.length > 0 ?
+								<BarChartViz data={ renderBarChart(data.Media)}/>
+								: <p>Missing data</p>
+							}
+						</Paper>
+					</Grid>
+				</Grid>
+			: "Sorry, couldn't find any results for this :("}
 			
 			
 		</StyledContainer>
