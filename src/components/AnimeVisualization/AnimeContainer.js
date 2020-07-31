@@ -38,6 +38,11 @@ const AnimeContainer = () => {
 		    coverImage {
 		    	large
 		    }
+		    averageScore
+		    type
+		    status
+		    episodes
+		    chapters
 		  }
 		}
 	`;
@@ -94,7 +99,7 @@ const AnimeContainer = () => {
 					</Grid>
 					<Grid item lg={4}>
 						<Paper variant="outlined">
-							<h3>Information</h3>
+							<h3>About</h3>
 							<Info data={data.Media}/> 
 						</Paper>
 					</Grid>

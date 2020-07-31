@@ -7,6 +7,7 @@ const StyledContainer = styled.div`
 
 	.searchbar {
 		text-align:center;
+		padding: 2rem;
 
 		.searchbox {
 			padding: 15px;

@@ -26,7 +26,7 @@ const StyledInfo = styled.div`
 
 `;
 
-const Info = ({data: { title, tags, rankings, coverImage }}) => {
+const Info = ({data: { title, tags, rankings, coverImage, averageScore, type, status, episodes, chapters }}) => {
 	// console.log(title);
 	const tagsArray = [];
 	tags.map(tag => {
@@ -47,6 +47,12 @@ const Info = ({data: { title, tags, rankings, coverImage }}) => {
 					{ title.native != null ? <li>Native: {title.native}</li> : "" }
 					
 					<img src={coverImage.large} alt="" />
+
+					{ averageScore != null ? <li>Average Score: {averageScore}</li> : "" }
+					{ type != null ? <li>Media Type: {type}</li> : "" }
+					{ status != null ? <li>Status: {status}</li> : "" }
+					{ episodes != null ? <li>Total Episodes: {episodes}</li> : "" }
+					{ chapters != null ? <li>Total Chapters: {chapters}</li> : "" }
 				</Paper>
 
 
@@ -56,7 +62,7 @@ const Info = ({data: { title, tags, rankings, coverImage }}) => {
 				</Paper>
 
 				<Paper elevation={2} className="paper">
-					<h5>Rankings</h5>
+					<h5>Ratings</h5>
 					{
 						rankings.map((ranking, index) => (
 							<li key={index}>{ranking.context} { ranking.year === null ? "" : `- ${ranking.year}`}</li>
