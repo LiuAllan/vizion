@@ -6,6 +6,7 @@ import styled from 'styled-components';
 // Components
 import RadarChartViz from './RadarChart';
 import BarChartViz from './BarChart';
+import Info from './Info';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
@@ -20,14 +21,14 @@ const StyledContainer = styled.div`
 	.viz-container {
 		text-align: center;
 		padding: 1em;
-		overflow: hidden;
+		width: 100%;
 	}
 `;
 
 
 const AnimeContainer = () => {
 	const [search, setSearch] = useState("");
-	const [submit, setSubmit] = useState("");
+	const [submit, setSubmit] = useState("Demon Slayer");
 
 	const GET_ANIME_STATS = gql`
 		{
@@ -85,7 +86,7 @@ const AnimeContainer = () => {
 			<div className="searchbar">
 				<h1>Search for an Anime or Manga</h1>
 				<form onSubmit={handleSubmit}>
-					<input type="text" name="search" value={search} onChange={handleChange}></input>
+					<input type="text" name="search" value={search} onChange={handleChange} placeholder="Search"></input>
 				</form>
 			</div>
 
@@ -103,7 +104,7 @@ const AnimeContainer = () => {
 					<Grid item lg={4}>
 						<Paper variant="outlined">
 							<h3>Information</h3>
-							<RadarChartViz data={renderRadarChart(data.Media)}/> 
+							<Info data={data.Media}/> 
 						</Paper>
 					</Grid>
 					<Grid item lg={4}>
