@@ -114,7 +114,7 @@ const AnimeContainer = () => {
 					</Grid>
 				</Grid>
 				</>
-			: "Sorry, couldn't find any results for this :("
+			: ""
 			}
 			
 			
