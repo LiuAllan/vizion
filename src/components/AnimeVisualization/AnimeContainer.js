@@ -7,6 +7,9 @@ import StyledContainer from './StyledAnimeContainer';
 import RadarChartViz from './RadarChart';
 import BarChartViz from './BarChart';
 import Info from './Info';
+import Media from './Media';
+import Ranking from './Ranking';
+import Duration from './Duration';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
@@ -38,11 +41,23 @@ const AnimeContainer = () => {
 		    coverImage {
 		    	large
 		    }
-		    averageScore
 		    type
+		    format
 		    status
+		    startDate {
+		      year
+		      month
+		      day
+		    }
 		    episodes
+		    duration
 		    chapters
+		    volumes
+		    averageScore
+		    meanScore
+		    popularity
+		    trending
+		    favourites
 		  }
 		}
 	`;
@@ -99,8 +114,8 @@ const AnimeContainer = () => {
 					</Grid>
 					<Grid item lg={4}>
 						<Paper variant="outlined">
-							<h3>About</h3>
-							<Info data={data.Media}/> 
+							<h3>General</h3>
+							<Info data={data.Media}/>
 						</Paper>
 					</Grid>
 					<Grid item lg={4}>
@@ -110,6 +125,24 @@ const AnimeContainer = () => {
 								<BarChartViz data={ renderBarChart(data.Media)}/>
 								: <p>Missing data</p>
 							}
+						</Paper>
+					</Grid>
+					<Grid item xs>
+						<Paper variant="outlined">
+							<h3>Media</h3>
+							<Media data={data.Media}/>
+						</Paper>
+					</Grid>
+					<Grid item xs>
+						<Paper variant="outlined">
+							<h3>Duration</h3>
+							<Duration data={data.Media}/>
+						</Paper>
+					</Grid>
+					<Grid item xs>
+						<Paper variant="outlined">
+							<h3>Ranking</h3>
+							<Ranking data={data.Media}/>
 						</Paper>
 					</Grid>
 				</Grid>
