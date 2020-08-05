@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid';
 
 const AnimeContainer = () => {
 	const [search, setSearch] = useState("");
-	const [submit, setSubmit] = useState("One punch man");
+	const [submit, setSubmit] = useState("Fire Force");
 
 	const GET_ANIME_STATS = gql`
 		{

@@ -1,5 +1,7 @@
 import React, { useEffect }from 'react';
 import styled from 'styled-components';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 //images
 import laptop from '../../images/laptop_viz.png';
 // Components
@@ -17,6 +19,7 @@ const StyledMainInformation = styled.div`
 		padding-top: 5rem;
 		height: 100%;
 		width: 100%;
+		overflow: hidden;
 	}
 
 	.main-information-container
@@ -55,9 +58,15 @@ const StyledMainInformation = styled.div`
 const MainInformation = () => {
 
 	useEffect(() => {
+		Aos.init({
+			duration: 1000,
+			once: true,
+			offset: 100
+		});
+		Aos.refresh();
 		ScrollOut({
 			once: true,
-			threshold: 0.3,
+			threshold: 0.2,
 		});
 	});
 
@@ -73,11 +82,11 @@ const MainInformation = () => {
 						<h3 data-scroll>Make analytics easier to understand.</h3>
 					</div>
 					<Grid className="heading3" container justify="center">
-						<Grid item md={3} className="icon1-container" data-scroll>
+						<Grid item md={3} className="icon1-container" data-aos="fade-up" data-aos-delay="300">
 							<VisibilityIcon style={{color: '#8a56e9', fontSize: '3em'}}/>
 							<h4>Without a visual representation, it can be hard for the audience to grasp the true meaning of the findings</h4>
 						</Grid>
-						<Grid item md={3} className="icon2-container" data-scroll>
+						<Grid item md={3} className="icon2-container" data-aos="fade-up" data-aos-delay="500">
 							<DataUsageIcon style={{color: '#8a56e9', fontSize: '3em'}}/>
 							<h4>With the rise of big data, we need to be able to interpret large batches of data</h4>
 						</Grid>
