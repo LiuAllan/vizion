@@ -61,7 +61,7 @@ const MainInformation = () => {
 		Aos.init({
 			duration: 1000,
 			once: true,
-			offset: 100
+			offset: 200
 		});
 		Aos.refresh();
 		ScrollOut({
