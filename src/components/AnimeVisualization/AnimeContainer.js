@@ -106,19 +106,19 @@ const AnimeContainer = () => {
 				<>
 				<img src={data.Media.bannerImage} alt="" className="bannerImg"/>
 				<Grid container spacing={1} className="viz-container">
-					<Grid item xs={12} lg={4}>
+					<Grid item xs={12} md={4}>
 						<Paper variant="outlined">
 							<h3>Genres</h3>
 							<RadarChartViz data={renderRadarChart(data.Media)}/>
 						</Paper>
 					</Grid>
-					<Grid item xs lg={4}>
+					<Grid item xs md={4}>
 						<Paper variant="outlined">
 							<h3>General</h3>
 							<Info data={data.Media}/>
 						</Paper>
 					</Grid>
-					<Grid item xs={12} lg={4}>
+					<Grid item xs={12} md={4}>
 						<Paper variant="outlined">
 							<h3>Category</h3>
 							{ data.Media.tags.length > 0 ?
@@ -127,19 +127,19 @@ const AnimeContainer = () => {
 							}
 						</Paper>
 					</Grid>
-					<Grid item xs={6} lg={4}>
+					<Grid item xs={12} md={4}>
 						<Paper variant="outlined">
 							<h3>Media</h3>
 							<Media data={data.Media}/>
 						</Paper>
 					</Grid>
-					<Grid item xs={6} lg={4}>
+					<Grid item xs={12} md={4}>
 						<Paper variant="outlined">
 							<h3>Duration</h3>
 							<Duration data={data.Media}/>
 						</Paper>
 					</Grid>
-					<Grid item xs={6} lg={4}>
+					<Grid item xs={12} md={4}>
 						<Paper variant="outlined">
 							<h3>Ranking</h3>
 							<Ranking data={data.Media}/>
