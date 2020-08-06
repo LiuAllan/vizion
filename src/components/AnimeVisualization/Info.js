@@ -23,16 +23,6 @@ const StyledInfo = styled.div`
 
 const Info = ({data: { title, tags, rankings, coverImage, averageScore, type, status, episodes, chapters }}) => {
 	// console.log(title);
-	const tagsArray = [];
-	tags.map(tag => {
-		tagsArray.push(`${tag.category}, `)
-	});
-
-	// const rankingsArray = [];
-	// rankings.map(ranking => {
-	// 	rankingsArray.push(`${ranking.context} - ${ranking.year}, `)
-	// });
-
 	return(
 		<StyledInfo>
 			<ul>
@@ -40,32 +30,7 @@ const Info = ({data: { title, tags, rankings, coverImage, averageScore, type, st
 				{ title.english != null ? <li>English: {title.english}</li> : "" }
 				{ title.romaji != null ? <li>Romaji: {title.romaji}</li> : "" }
 				{ title.native != null ? <li>Native: {title.native}</li> : "" }
-				
 				<img src={coverImage.large} alt="" />
-
-
-				{/*
-				{ averageScore != null ? <li>Average Score: {averageScore}</li> : "" }
-				{ type != null ? <li>Media Type: {type}</li> : "" }
-				{ status != null ? <li>Status: {status}</li> : "" }
-				{ episodes != null ? <li>Total Episodes: {episodes}</li> : "" }
-				{ chapters != null ? <li>Total Chapters: {chapters}</li> : "" }
-
-
-				
-				<h5>Types</h5>
-				<li>{tagsArray}</li>
-
-
-
-				<h5>Ratings</h5>
-				{
-					rankings.map((ranking, index) => (
-						<li key={index}>{ranking.context} { ranking.year === null ? "" : `- ${ranking.year}`}</li>
-					))
-				}
-				
-				*/}
 			</ul>
 		</StyledInfo>
 	);

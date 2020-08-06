@@ -19,7 +19,7 @@ const StyledInfo = styled.div`
 
 `;
 
-const Ranking = ({data: { averageScore, meanScore, popularity, trending, favourites }}) => {
+const Ranking = ({data: { averageScore, meanScore, popularity, trending, favourites, rankings }}) => {
 
 	return(
 		<StyledInfo>
@@ -29,6 +29,13 @@ const Ranking = ({data: { averageScore, meanScore, popularity, trending, favouri
 				{ trending != null ? <li>Activity per hour: {trending}</li> : "" }
 				{ popularity != null ? <li># of Times Saved by Users: {popularity}</li> : "" }
 				{ favourites != null ? <li># of Users Favourited: {favourites}</li> : "" }
+				
+				<h5>Ratings</h5>
+				{
+					rankings.map((ranking, index) => (
+						<li key={index}>{ranking.context} { ranking.year === null ? "" : `- ${ranking.year}`}</li>
+					))
+				}
 			</ul>
 		</StyledInfo>
 	);

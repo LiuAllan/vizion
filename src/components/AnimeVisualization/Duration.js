@@ -24,10 +24,10 @@ const Duration = ({data: { episodes, duration, chapters, volumes }}) => {
 	return(
 		<StyledInfo>
 			<ul>
-				{ episodes != null ? <li>Episodes: {episodes}</li> : "" }
-				{ duration != null ? <li>Length of Episode: {duration} min</li> : "" }
-				{ chapters != null ? <li>Chapters: {chapters}</li> : "" }
-				{ volumes != null ? <li>Volumes: {volumes}</li> : "" }
+				{ episodes != null ? <li>Episodes: {episodes}</li> : <li>Episodes: None</li> }
+				{ duration != null ? <li>Length of Episode: {duration} min</li> : <li>Length of Episode: None</li> }
+				{ chapters != null ? <li>Chapters: {chapters}</li> : <li>Chapters: None</li> }
+				{ volumes != null ? <li>Volumes: {volumes}</li> : <li>Volumes: None</li> }
 			</ul>
 		</StyledInfo>
 	);
