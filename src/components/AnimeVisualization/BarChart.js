@@ -6,7 +6,7 @@ import {
 const BarChartViz = ({data}) => {
 
     return (
-      <div style={{ width: '100%', height:'485px'}}>
+      <div style={{ width: '100%', height:'520px'}}>
         <ResponsiveContainer>
           <BarChart
             width={500}

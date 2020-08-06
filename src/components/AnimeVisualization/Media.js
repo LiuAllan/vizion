@@ -16,6 +16,11 @@ const StyledInfo = styled.div`
 		margin: auto;
 		display: block;
 	}
+	.data {
+		background-color: #f5f8fa;
+		border-radius: 10px;
+		padding: 0.5px 5px 0.5px 5px;
+	}
 
 `;
 
@@ -28,10 +33,10 @@ const Media = ({data: { type, format, status, startDate, tags }}) => {
 	return(
 		<StyledInfo>
 			<ul>
-				{ type != null ? <li>Media Type: {type}</li> : "" }
-				{ format != null ? <li>Media Format: {format}</li> : "" }
-				{ status != null ? <li>Status: {status}</li> : "" }
-				{ startDate != null ? <li>Release Date: {startDate.day}/{startDate.month}/{startDate.year}</li> : "" }
+				{ type != null ? <li>Media Type: <span className="data">{type}</span></li> : "" }
+				{ format != null ? <li>Media Format: <span className="data">{format}</span></li> : "" }
+				{ status != null ? <li>Status: <span className="data">{status}</span></li> : "" }
+				{ startDate != null ? <li>Release Date: <span className="data">{startDate.day}/{startDate.month}/{startDate.year}</span></li> : "" }
 				<h5>Keywords</h5>
 				<li>{tagsArray}</li>
 			</ul>

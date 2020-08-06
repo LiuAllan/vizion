@@ -28,6 +28,7 @@ const AnimeContainer = () => {
 		      english
 		      native
 		    }
+		    description
 		    genres
 		    tags {
 		      name
@@ -117,18 +118,12 @@ const AnimeContainer = () => {
 				<Grid container spacing={1} className="viz-container">
 					<Grid item xs={12} md={4}>
 						<Paper variant="outlined" data-aos="fade-up">
-							<h3>Genres</h3>
-							<RadarChartViz data={renderRadarChart(data.Media)}/>
-						</Paper>
-					</Grid>
-					<Grid item xs md={4}>
-						<Paper variant="outlined" data-aos="fade-up" data-aos-delay="100">
 							<h3>General</h3>
 							<Info data={data.Media}/>
 						</Paper>
 					</Grid>
 					<Grid item xs={12} md={4}>
-						<Paper variant="outlined" data-aos="fade-up" data-aos-delay="200">
+						<Paper variant="outlined" data-aos="fade-up" data-aos-delay="100">
 							<h3>Category</h3>
 							{ data.Media.tags.length > 0 ?
 								<BarChartViz data={ renderBarChart(data.Media)}/>
@@ -137,19 +132,26 @@ const AnimeContainer = () => {
 						</Paper>
 					</Grid>
 					<Grid item xs={12} md={4}>
-						<Paper variant="outlined" data-aos="fade-up" data-aos-delay="300">
+						<Paper variant="outlined" data-aos="fade-up" data-aos-delay="200">
+							<h3>Genres</h3>
+							<RadarChartViz data={renderRadarChart(data.Media)}/>
+						</Paper>
+					</Grid>
+
+					<Grid item xs={12} md={4}>
+						<Paper variant="outlined" data-aos="fade-up" data-aos-delay="100">
 							<h3>Media</h3>
 							<Media data={data.Media}/>
 						</Paper>
 					</Grid>
 					<Grid item xs={12} md={4}>
-						<Paper variant="outlined" data-aos="fade-up" data-aos-delay="400">
+						<Paper variant="outlined" data-aos="fade-up" data-aos-delay="200">
 							<h3>Duration</h3>
 							<Duration data={data.Media}/>
 						</Paper>
 					</Grid>
 					<Grid item xs={12} md={4}>
-						<Paper variant="outlined" data-aos="fade-up" data-aos-delay="500">
+						<Paper variant="outlined" data-aos="fade-up" data-aos-delay="300">
 							<h3>Ranking</h3>
 							<Ranking data={data.Media}/>
 						</Paper>

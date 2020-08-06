@@ -16,6 +16,11 @@ const StyledInfo = styled.div`
 		margin: auto;
 		display: block;
 	}
+	.data {
+		background-color: #f5f8fa;
+		border-radius: 10px;
+		padding: 0.5px 5px 0.5px 5px;
+	}
 
 `;
 
@@ -24,11 +29,19 @@ const Ranking = ({data: { averageScore, meanScore, popularity, trending, favouri
 	return(
 		<StyledInfo>
 			<ul>
-				{ averageScore != null ? <li>Average Score: {averageScore}</li> : "" }
-				{ meanScore != null ? <li>Mean Score: {meanScore}</li> : "" }
-				{ trending != null ? <li>Activity per hour: {trending}</li> : "" }
-				{ popularity != null ? <li># of Times Saved by Users: {popularity}</li> : "" }
-				{ favourites != null ? <li># of Users Favourited: {favourites}</li> : "" }
+				{ averageScore != null ? 
+					<li>
+						Average Score: {averageScore >= 70 ? <span style={{ backgroundColor: 'green'}} className="data">{averageScore}</span> : <span style={{ backgroundColor: 'red'}} className="data">{averageScore}</span> }
+					</li> : "" }
+
+
+				{ meanScore != null ? 
+					<li>
+						Mean Score: {meanScore >= 70 ? <span style={{ backgroundColor: 'green'}} className="data">{meanScore}</span> : <span style={{ backgroundColor: 'red'}} className="data">{meanScore}</span> }
+					</li> : "" }
+				{ trending != null ? <li>Activity per hour: <span className="data">{trending}</span></li> : "" }
+				{ popularity != null ? <li># of Times Saved by Users: <span className="data">{popularity}</span></li> : "" }
+				{ favourites != null ? <li># of Users Favourited: <span className="data">{favourites}</span></li> : "" }
 				
 				<h5>Ratings</h5>
 				{

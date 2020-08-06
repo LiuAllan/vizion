@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const StyledContainer = styled.div`
 	height: 100%;
 	width: 100%;
-	background-color: #fff;
+	background-color: #f5f8fa;
 
 	.searchbar {
 		text-align:center;

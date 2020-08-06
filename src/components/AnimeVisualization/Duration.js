@@ -16,6 +16,11 @@ const StyledInfo = styled.div`
 		margin: auto;
 		display: block;
 	}
+	.data {
+		background-color: #f5f8fa;
+		border-radius: 10px;
+		padding: 0.5px 5px 0.5px 5px;
+	}
 
 `;
 
@@ -24,10 +29,10 @@ const Duration = ({data: { episodes, duration, chapters, volumes }}) => {
 	return(
 		<StyledInfo>
 			<ul>
-				{ episodes != null ? <li>Episodes: {episodes}</li> : <li>Episodes: None</li> }
-				{ duration != null ? <li>Length of Episode: {duration} min</li> : <li>Length of Episode: None</li> }
-				{ chapters != null ? <li>Chapters: {chapters}</li> : <li>Chapters: None</li> }
-				{ volumes != null ? <li>Volumes: {volumes}</li> : <li>Volumes: None</li> }
+				{ episodes != null ? <li>Episodes: <span className="data">{episodes}</span></li> : <li>Episodes: <span className="data">None</span></li> }
+				{ duration != null ? <li>Length of Episode: <span className="data">{duration} min</span></li> : <li>Length of Episode: <span className="data">None</span></li> }
+				{ chapters != null ? <li>Chapters: <span className="data">{chapters}</span></li> : <li>Chapters: <span className="data">None</span></li> }
+				{ volumes != null ? <li>Volumes: <span className="data">{volumes}</span></li> : <li>Volumes: <span className="data">None</span></li> }
 			</ul>
 		</StyledInfo>
 	);
