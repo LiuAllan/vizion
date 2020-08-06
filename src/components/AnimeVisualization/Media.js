@@ -32,7 +32,7 @@ const Media = ({data: { type, format, status, startDate, tags }}) => {
 				{ format != null ? <li>Media Format: {format}</li> : "" }
 				{ status != null ? <li>Status: {status}</li> : "" }
 				{ startDate != null ? <li>Release Date: {startDate.day}/{startDate.month}/{startDate.year}</li> : "" }
-				<h5>Types</h5>
+				<h5>Keywords</h5>
 				<li>{tagsArray}</li>
 			</ul>
 		</StyledInfo>

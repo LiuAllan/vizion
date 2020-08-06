@@ -22,7 +22,7 @@ const BarChartViz = ({data}) => {
             <Tooltip />
             <Legend />
             <CartesianGrid strokeDasharray="3 3" />
-            <Bar dataKey="tags" fill="#8884d8" background={{ fill: '#eee' }} />
+            <Bar dataKey="value" fill="#8884d8" background={{ fill: '#eee' }} />
           </BarChart>
         </ResponsiveContainer>
       </div>
